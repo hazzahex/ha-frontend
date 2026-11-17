@@ -508,12 +508,29 @@ export class HaInput extends WaInputMixin(LitElement) {
         padding-top: var(--ha-space-6);
         padding-bottom: 2px;
         cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
       }
       :host([type="color"]) wa-input.no-label::part(input) {
         padding: var(--ha-space-2);
       }
       :host([type="color"]) wa-input.no-label::part(base) {
         padding: 0;
+      }
+      /* Native color swatches differ per browser (iOS Safari draws a circle
+         that gets stretched into an oval), so render a consistent rounded
+         rectangle with a subtle outline for low-contrast colors. */
+      :host([type="color"])
+        wa-input::part(input)::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+      :host([type="color"]) wa-input::part(input)::-webkit-color-swatch {
+        border: 1px solid var(--ha-color-border-neutral-quiet);
+        border-radius: var(--ha-border-radius-sm);
+      }
+      :host([type="color"]) wa-input::part(input)::-moz-color-swatch {
+        border: 1px solid var(--ha-color-border-neutral-quiet);
+        border-radius: var(--ha-border-radius-sm);
       }
       wa-input::part(input)::placeholder {
         color: var(--ha-color-neutral-60);
